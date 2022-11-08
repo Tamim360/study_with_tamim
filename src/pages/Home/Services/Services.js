@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ServiceCard from '../../../shared/ServiceCard/ServiceCard';
 
 const Services = () => {
@@ -19,7 +20,9 @@ const Services = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {services.map(service => <ServiceCard key={service._id} service={service} />)}
             </div>
-            <button className="btn btn-outline mx-auto block mb-3 mt-8 font-bold px-8">SEE ALL</button>
+            <Link to={'/services'}>
+                <button className="btn btn-outline mx-auto block mb-3 mt-8 font-bold px-8">SEE ALL</button>
+            </Link>
         </div>
     );
 };

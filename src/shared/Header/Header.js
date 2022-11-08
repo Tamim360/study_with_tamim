@@ -1,15 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
 
   const menuItems = <>
-    <li><Link className="font-semibold">Home</Link></li>
-    <li><Link className="font-semibold">Services</Link></li>
-    <li><Link className="font-semibold">Blog</Link></li>
-    <li><Link className="font-semibold">About</Link></li>
-    <li><Link className="font-semibold">FAQ</Link></li>
-    <li><Link className="font-semibold">Contact</Link></li>
+    <li><NavLink to="/" className="font-semibold">Home</NavLink></li>
+    <li><NavLink to="/services" className="font-semibold">Services</NavLink></li>
+    <li><NavLink to="/blogs" className="font-semibold">Blogs</NavLink></li>
+    <li><NavLink to="/about" className="font-semibold">About</NavLink></li>
+    <li><NavLink to="/faq" className="font-semibold">FAQ</NavLink></li>
+    <li><NavLink to="/contact" className="font-semibold">Contact</NavLink></li>
     </>
 
     return (
@@ -23,7 +23,7 @@ const Header = () => {
             {menuItems}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+        <Link to="/" className="btn btn-ghost normal-case text-xl">Study With Tamim</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
@@ -31,7 +31,7 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link className="btn">Login</Link>
+        <Link to='/login' className="btn">Login</Link>
       </div>
     </div>
     );
