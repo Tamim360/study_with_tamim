@@ -9,7 +9,10 @@ const ServiceCard = ({ service }) => {
     <PhotoProvider>
         <div className="p-3 border shadow-2xl rounded-md relative">
       <PhotoView src={image}>
-      <Link title="click to see full screen"><img className="w-full h-64 rounded-t-md" src={image} alt={name} /></Link>
+          <Link
+            title="click to see full screen">
+            <img className="w-full h-64 rounded-t-md" src={image} alt={name} />
+          </Link>
       </PhotoView>
 
       <h2 className="text-2xl font-bold mt-2">{name}</h2>
