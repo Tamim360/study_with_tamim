@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 import SocialLogin from '../../shared/SocialLogin/SocialLogin';
 
 const SignUp = () => {
+    const {createUser, updateUserProfile} = useContext(AuthContext)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -11,7 +13,23 @@ const SignUp = () => {
         const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name, photo, email, password);
+        
+        createUser(email, password)
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+            const profile = {
+                displayName: name,
+                photoURL: photo
+            }
+            updateUserProfile(profile)
+            .then(result => {
+                const user = result.user
+                console.log(user);
+            })
+            .catch(err => console.error(err))
+        })
+        .catch(err => console.error(err))
       };
 
     return (

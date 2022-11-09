@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Header = () => {
+  const {user} = useContext(AuthContext)
 
   const menuItems = <>
     <li><NavLink to="/" className="font-semibold">Home</NavLink></li>
@@ -10,10 +12,17 @@ const Header = () => {
     <li><NavLink to="/about" className="font-semibold">About</NavLink></li>
     <li><NavLink to="/faq" className="font-semibold">FAQ</NavLink></li>
     <li><NavLink to="/contact" className="font-semibold">Contact</NavLink></li>
+    {
+      (user && user.uid) && 
+      <>
+        <li><NavLink to="/addservice" className="font-semibold">Add A Service</NavLink></li>
+        <li><NavLink to="/myservice" className="font-semibold">My Services</NavLink></li>
+      </>
+    }
     </>
 
     return (
-      <div className="navbar shadow-md sticky top-0 z-10 backdrop:blur-md">
+      <div className="navbar shadow-md sticky top-0 z-10 backdrop:blur-[8px] bg-white/75">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
