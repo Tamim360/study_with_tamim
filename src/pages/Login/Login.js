@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 
 const Login = () => {
-  const {signIn} = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location?.state?.from?.pathname || '/'
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +18,7 @@ const Login = () => {
     signIn(email, password)
         .then(result => {
             const user = result.user;
-            console.log(user);
+            navigate(from, {replace: true})
         })
         .catch(err => console.error(err))
       };  

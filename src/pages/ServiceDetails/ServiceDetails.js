@@ -1,13 +1,52 @@
-import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLoaderData, useLocation } from 'react-router-dom';
 import { FaArrowLeft, FaQuoteLeft, FaStar } from 'react-icons/fa';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const ServiceDetails = () => {
-    const {_id, name, description, image, price} = useLoaderData()
+    const { _id, name, description, image, price } = useLoaderData()
+    const { user } = useContext(AuthContext)
+    const [reviews, setReviews] = useState([])
+    const location = useLocation()
+
+    // load reviews
+    useEffect(() => {
+        fetch('http://localhost:5000/reviews')
+        .then(res => res.json())
+        .then(data => setReviews(data))
+    },[reviews])
+
+    // review
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const form = e.target
+        const userReview = form.userReview.value
+
+        const review = {
+            name: user.displayName,
+            email: user.email,
+            image: user.photoURL,
+            userReview,
+        }
+        
+        fetch('http://localhost:5000/reviews', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(review)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.acknowledged) {
+                const newReviews = [reviews, ...reviews]
+                setReviews(newReviews)
+            }
+        })
+
+    }
     
     return (
         <div className="flex gap-2">
-            <div className="border grow shadow-2xl m-8 p-3">
+            <div className="border grow shadow-2xl m-8 p-3 max-w-3xl">
                 <Link to="/services" className="flex justify-center items-center gap-2 w-24 mx-auto font-bold mb-8" ><FaArrowLeft /> Back</Link>
                 <img className="w-full h-96" src={image} alt={name} />
                 <h2 className="text-3xl font-bold my-3">{name}</h2>
@@ -24,66 +63,44 @@ const ServiceDetails = () => {
                 </div>
                 <button className="btn block w-full my-3">Buy This course</button>
             </div>
-            <div className="max-w-sm min-w-[250px] px-2 mr-2 mt-8">
+
+            {/* review */}
+            <div className="min-w-[250px] px-2 mr-2 mt-8">
             <div className="border rounded pb-2 relative">
             <h2 className="text-xl text-center font-semibold bg-white border w-max mx-auto rounded-full px-3 -mt-4">Students reviews</h2>
             
             <div className="max-h-[500px] overflow-y-auto">
                 {/* single review */}
-            <div className="py-2 relative mt-2">
-                <div className="flex items-center justify-center gap-2">
-                    <img className="w-12 h-12 rounded-full" src="https://api.bdcrictime.com/players/342.png" alt="" />
-                    <h2 className="font-semibold">Tamim Iqbal Khan</h2>
-                </div>
-                <div className="text-center">
-                <FaQuoteLeft className="text-sm font-bold block mx-auto" />
-                <p className="text-sm text-slate-600">This is a great course I have ever seen. It helped me a lot to get rid of my fear of that problem. Thanks dude. May Allah bless you.</p>
-                </div>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-violet-900"></div>
+                    {
+                        reviews.map(review => {
+                            const {name, image, userReview} = review;
+                            return (
+                                <div key={review._id} className="py-2 relative mt-2">
+                                    <div className="flex items-center justify-center gap-2">
+                                        <img className="w-12 h-12 rounded-full" src={image} alt={name} />
+                                        <h2 className="font-semibold">{name}</h2>
+                                    </div>
+                                    <div className="text-center">
+                                        <FaQuoteLeft className="text-sm font-bold block mx-auto" />
+                                        <p className="text-sm text-slate-600">{userReview}</p>
+                                    </div>
+                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-violet-900"></div>
+                                </div>
+                            )
+                        })
+                    }
+                {/* single review ends */}
             </div>
-            {/* single review ends */}
-            {/* single review */}
-            <div className="py-2 relative mt-2">
-                <div className="flex items-center justify-center gap-2">
-                    <img className="w-12 h-12 rounded-full" src="https://api.bdcrictime.com/players/342.png" alt="" />
-                    <h2 className="font-semibold">Tamim Iqbal Khan</h2>
-                </div>
-                <div className="text-center">
-                <FaQuoteLeft className="text-sm font-bold block mx-auto" />
-                <p className="text-sm text-slate-600">This is a great course I have ever seen. It helped me a lot to get rid of my fear of that problem. Thanks dude. May Allah bless you.</p>
-                </div>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-violet-900"></div>
-            </div>
-            {/* single review ends */}
-            {/* single review */}
-            <div className="py-2 relative mt-2">
-                <div className="flex items-center justify-center gap-2">
-                    <img className="w-12 h-12 rounded-full" src="https://api.bdcrictime.com/players/342.png" alt="" />
-                    <h2 className="font-semibold">Tamim Iqbal Khan</h2>
-                </div>
-                <div className="text-center">
-                <FaQuoteLeft className="text-sm font-bold block mx-auto" />
-                <p className="text-sm text-slate-600">This is a great course I have ever seen. It helped me a lot to get rid of my fear of that problem. Thanks dude. May Allah bless you.</p>
-                </div>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-violet-900"></div>
-            </div>
-            {/* single review ends */}
-            {/* single review */}
-            <div className="py-2 relative mt-2">
-                <div className="flex items-center justify-center gap-2">
-                    <img className="w-12 h-12 rounded-full" src="https://api.bdcrictime.com/players/342.png" alt="" />
-                    <h2 className="font-semibold">Tamim Iqbal Khan</h2>
-                </div>
-                <div className="text-center">
-                <FaQuoteLeft className="text-sm font-bold block mx-auto" />
-                <p className="text-sm text-slate-600">This is a great course I have ever seen. It helped me a lot to get rid of my fear of that problem. Thanks dude. May Allah bless you.</p>
-                </div>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-violet-900"></div>
-            </div>
-            {/* single review ends */}
-            </div>
-            <div>
-                <button className="btn btn-sm">Please login to add review</button>
+            <div className="bg-gradient-to-t from-white/75 pt-6">
+                {
+                    user && user.uid ?
+                    <form onSubmit={handleSubmit}>
+                    <textarea name="userReview" className="textarea textarea-primary h-20 w-full" placeholder="Add review"></textarea>
+                    <input type="submit" className="btn block w-full"  value="Add Review"/>
+                    </form>
+                    :
+                    <Link to="/login" state={{from: location}} replace><button className="btn btn-xs block mx-auto">Please login to add review</button></Link>
+                }
             </div>
             </div>
             </div>

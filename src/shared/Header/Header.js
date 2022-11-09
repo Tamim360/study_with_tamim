@@ -17,7 +17,7 @@ const Header = () => {
       (user && user.uid) && 
       <>
         <li><NavLink to="/addservice" className="font-semibold">Add A Service</NavLink></li>
-        <li><NavLink to="/myservice" className="font-semibold">My Services</NavLink></li>
+        <li><NavLink to="/myreviews" className="font-semibold">My Reviews</NavLink></li>
       </>
     }
   </>
