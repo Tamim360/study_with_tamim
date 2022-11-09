@@ -3,7 +3,7 @@ import { FaGoogle } from 'react-icons/fa';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const SocialLogin = () => {
-    const { signInWithGoogle } = useContext(AuthContext)
+    const { signInWithGoogle, updateUserProfile } = useContext(AuthContext)
     
     const handleGoogleSignIn = (e) => {
         e.preventDefault();
@@ -11,6 +11,16 @@ const SocialLogin = () => {
         .then(res => {
             const user = res.user
             console.log(user);
+            // const profile = {
+            //     displayName: user.displayName,
+            //     photoURL: user.photoURL
+            // }
+            // updateUserProfile(profile)
+            // .then(result => {
+            //     const user = result.user
+            //     console.log(user);
+            // })
+            // .catch(err => console.error(err))
         })
         .catch(err => console.error(err))
     }

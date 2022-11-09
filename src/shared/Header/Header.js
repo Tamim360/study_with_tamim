@@ -3,8 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const Header = () => {
-  const {user} = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext)
 
+// menu items for desktop and mobile
   const menuItems = <>
     <li><NavLink to="/" className="font-semibold">Home</NavLink></li>
     <li><NavLink to="/services" className="font-semibold">Services</NavLink></li>
@@ -19,7 +20,14 @@ const Header = () => {
         <li><NavLink to="/myservice" className="font-semibold">My Services</NavLink></li>
       </>
     }
-    </>
+  </>
+  
+  // logout handle
+  const handleLogOut = () => {
+    logOut()
+    .then({})
+    .catch((err) => console.error(err))
+  }
 
     return (
       <div className="navbar shadow-md sticky top-0 z-10 backdrop:blur-[8px] bg-white/75">
@@ -40,8 +48,32 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link to='/login' className="btn">Login</Link>
-        <Link to='/signup' className="ml-2 btn">SignUp</Link>
+        {
+          user && user.uid ?
+          <div className="dropdown dropdown-end">
+      <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full">
+          <img src={user?.photoURL} alt="profile" />
+        </div>
+      </label>
+      <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+        <li>
+          <Link className="justify-between">
+            Profile
+            <span className="badge">New</span>
+          </Link>
+        </li>
+        <li><Link>Settings</Link></li>
+        <li onClick={handleLogOut}><Link>Logout</Link></li>
+      </ul>
+    </div>
+          :
+          <>
+            <Link to='/login' className="btn">Login</Link>
+          <Link to='/signup' className="ml-2 btn">SignUp</Link>
+              </>
+        }
+          
       </div>
     </div>
     );
