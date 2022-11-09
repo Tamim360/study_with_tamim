@@ -11,10 +11,10 @@ const ServiceDetails = () => {
 
     // load reviews
     useEffect(() => {
-        fetch('http://localhost:5000/reviews')
+        fetch(`http://localhost:5000/reviews?id=${_id}`)
         .then(res => res.json())
         .then(data => setReviews(data))
-    },[reviews])
+    },[reviews, _id])
 
     // review
     const handleSubmit = (e) => {
@@ -23,6 +23,7 @@ const ServiceDetails = () => {
         const userReview = form.userReview.value
 
         const review = {
+            courseId: _id,
             name: user.displayName,
             email: user.email,
             image: user.photoURL,
@@ -39,6 +40,7 @@ const ServiceDetails = () => {
             if (data.acknowledged) {
                 const newReviews = [reviews, ...reviews]
                 setReviews(newReviews)
+                form.reset()
             }
         })
 
@@ -65,7 +67,7 @@ const ServiceDetails = () => {
             </div>
 
             {/* review */}
-            <div className="min-w-[250px] px-2 mr-2 mt-8">
+            <div className="min-w-[250px] grow px-2 mr-2 mt-8">
             <div className="border rounded pb-2 relative">
             <h2 className="text-xl text-center font-semibold bg-white border w-max mx-auto rounded-full px-3 -mt-4">Students reviews</h2>
             
@@ -88,7 +90,12 @@ const ServiceDetails = () => {
                                 </div>
                             )
                         })
+                        
                     }
+                    {
+                        reviews.length === 0 && <div className="font-bold text-center my-3">No reviews yet</div>
+                    }
+                    
                 {/* single review ends */}
             </div>
             <div className="bg-gradient-to-t from-white/75 pt-6">

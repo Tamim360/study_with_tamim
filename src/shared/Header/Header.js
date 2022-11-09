@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext)
+  const location = useLocation()
 
 // menu items for desktop and mobile
   const menuItems = <>
@@ -69,7 +70,7 @@ const Header = () => {
     </div>
           :
           <>
-            <Link to='/login' className="btn">Login</Link>
+            <Link to='/login' state={{from: location}} className="btn" replace>Login</Link>
           <Link to='/signup' className="ml-2 btn">SignUp</Link>
               </>
         }
