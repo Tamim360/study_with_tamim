@@ -1,8 +1,12 @@
 import { useEffect } from "react"
 
-const useTitle = (title) => {
+const useTitle = (title, home = false) => {
     useEffect(() => {
-        document.title = `${title} - Study With Tamim`
+        if (home) {
+            document.title = 'Study With Tamim'
+        } else {
+            document.title = `${title} - Study With Tamim`
+        }
     },[title])
 }
 
