@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 const Banner = () => {
     return (
-        <div className="hero min-h-screen bg-base-200">
-  <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="hero min-h-screen bg-heroBg">
+  <div className="hero-content flex-col lg:flex-row-reverse backdrop-blur-[20px]">
   <Player
   src='https://assets9.lottiefiles.com/packages/lf20_9ungcrzx.json'
   className="player"
