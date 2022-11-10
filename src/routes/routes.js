@@ -10,6 +10,7 @@ import Services from "../pages/Services/Services";
 import SignUp from "../pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 
+
 export const router = createBrowserRouter([
     {
         path: '/',

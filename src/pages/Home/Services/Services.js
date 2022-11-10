@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider';
 import ServiceCard from '../../../shared/ServiceCard/ServiceCard';
 
 const Services = () => {
+    const {setLoading} = useContext(AuthContext)
     const [services, setServices] = useState([]);
 
     useEffect(() => {
+        setLoading(true)
         fetch('http://localhost:5000/services?limit=3')
         .then(res => res.json())
-        .then(data => setServices(data))
+            .then(data => {
+                setServices(data)
+            })
+            setLoading(false)
+        
     }, [])
     
     return (

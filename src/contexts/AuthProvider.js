@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true)
 
+
     // create user
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -47,7 +48,8 @@ const AuthProvider = ({ children }) => {
         signInWithGoogle,
         updateUserProfile,
         logOut,
-        loading
+        loading,
+        setLoading
     }
 
     useEffect(() => {
@@ -56,7 +58,14 @@ const AuthProvider = ({ children }) => {
             setLoading(false)
         })
         return () => unsubscribe()
-    },[])
+    }, [])
+    
+
+    if (loading) {
+        return <div className="w-screen h-screen flex justify-center items-center">
+            <progress className="progress w-56"></progress>
+        </div>
+    }
 
     return (
         <AuthContext.Provider value={authInfo}>
@@ -65,4 +74,4 @@ const AuthProvider = ({ children }) => {
     );
 };
 
-export default AuthProvider;
+export  default  AuthProvider;

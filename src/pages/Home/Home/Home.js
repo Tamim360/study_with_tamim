@@ -10,7 +10,7 @@ const Home = () => {
     useTitle('', true)
     
     return (
-        <div>
+        <div className="overflow-x-hidden">
             <Banner/>
             <Services />
             <WhyChoose />

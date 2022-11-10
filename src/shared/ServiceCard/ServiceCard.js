@@ -22,7 +22,6 @@ const ServiceCard = ({ service }) => {
         <div className="flex justify-between items-center p-2 px-3">
           <p className="text-sm font-bold">Price: ${price}</p>
           <Link className="tooltip" data-tip="click to see details about this course" to={`/services/${_id}`}><button className="btn btn-sm text-xs">See Details</button></Link>
-          <Link className="tooltip" data-tip="Add to cart"><button className="btn btn-sm text-xs"><FaCartPlus/></button></Link>
         </div>
       </div>
     </div>
