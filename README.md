@@ -2,7 +2,7 @@
 
 A online educational platform
 
-Live site: [Study With Tamim](https://github.com/facebook/create-react-app).
+Live site: [Study With Tamim](https://study-with-tamim.web.app/).
 
 ## Funtionality
 - Email / password authentication
