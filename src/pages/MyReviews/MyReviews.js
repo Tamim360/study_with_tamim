@@ -10,6 +10,7 @@ const MyReviews = () => {
     useTitle('My Reviews')
     const { user } = useContext(AuthContext)
     const [reviews, setReviews] = useState([])
+    const [isHidden, setIsHidden] = useState(true)
 
     // load all reviews based on specific user email
     useEffect(() => {
@@ -33,6 +34,31 @@ const MyReviews = () => {
             }
         })
     }
+
+    // update review
+    const handleSubmit = (e, id) => {
+        e.preventDefault()
+        const form = e.target
+        const reviewUpdate = form.reviewUpdate.value
+        // console.log(reviewUpdate, id);
+        form.reset()
+        setIsHidden(true)
+        const review = {userReview : reviewUpdate}
+        fetch(`http://localhost:5000/reviews/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(review)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.modifiedCount === 1) {
+                const newReviews = reviews.filter(review => review._id !== id)
+                setReviews(newReviews)
+                notify('Review updated successfully')
+            }
+        })
+    }
+
 
     return (
        
@@ -65,8 +91,22 @@ const MyReviews = () => {
                                                 <FaStar/>
                                             </div>
                                         <div className="flex items-center gap-2">
-                                            <Link className="tooltip" data-tip="Edit Review"><FaEdit /></Link>
+                                            
+                                            <label onClick={() => setIsHidden(false)} htmlFor="my-modal-4" className="tooltip cursor-pointer" data-tip="Edit Review"><FaEdit /></label>
                                             <Link onClick={() => deleteReview(_id)} className="tooltip" data-tip="Delete Review"><FaTrashAlt/></Link>
+                                            
+                                            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+                                            <label htmlFor="my-modal-4" className={`modal cursor-pointer ${isHidden && 'scale-0'}`}>
+                                            <label className={`modal-box relative`} htmlFor="">
+                                                
+                                                <form onSubmit={(e)=> handleSubmit(e,_id)}>
+                                                <textarea name="reviewUpdate" className="textarea textarea-bordered w-full h-44 text-slate-900" placeholder="Edit Review" style={{ resize: 'none' }} defaultValue={userReview}></textarea>
+                                                
+                                                <input type="submit" value='Done' className="btn btn-primary mt-2 block w-full"/>
+                                                </form>
+                                                
+                                            </label>
+                                            </label>
                                             
                                         </div>
                                         </div>
@@ -83,10 +123,10 @@ const MyReviews = () => {
                 {
                     reviews.length === 0 && <>
                         <p className="text-xl font-bold text-center mt-40">No reviews were added</p>
-                        <p className="text-center mt-3">See <Link to="/services" className="text-violet-600">Services</Link> and add review</p>
+                        <p className="text-center mt-3">See <Link to="/services" className="text-violet-600 font-bold">Services</Link> and add review</p>
                     </>
             }
-            
+                
             
             </div>
         
