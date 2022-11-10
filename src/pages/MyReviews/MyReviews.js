@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { FaEdit, FaStar, FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 
 import { notify } from '../../utilities/notify';
 
 const MyReviews = () => {
+    useTitle('My Reviews')
     const { user } = useContext(AuthContext)
     const [reviews, setReviews] = useState([])
 

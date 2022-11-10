@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import SocialLogin from '../../shared/SocialLogin/SocialLogin';
 
 const SignUp = () => {
     const {createUser, updateUserProfile} = useContext(AuthContext)
+
+    useTitle('SignUp')
 
     const handleSubmit = (e) => {
         e.preventDefault();

@@ -11,9 +11,6 @@ const Header = () => {
     <li><NavLink to="/" className="font-semibold">Home</NavLink></li>
     <li><NavLink to="/services" className="font-semibold">Services</NavLink></li>
     <li><NavLink to="/blogs" className="font-semibold">Blogs</NavLink></li>
-    <li><NavLink to="/about" className="font-semibold">About</NavLink></li>
-    <li><NavLink to="/faq" className="font-semibold">FAQ</NavLink></li>
-    <li><NavLink to="/contact" className="font-semibold">Contact</NavLink></li>
     {
       (user && user.uid) && 
       <>

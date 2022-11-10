@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 import { notify } from '../../utilities/notify';
 
 const AddService = () => {
     const navigate = useNavigate()
-
+    useTitle('Add a service')
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
