@@ -5,25 +5,25 @@ import useTitle from "../../hooks/useTitle";
 import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 
 const Login = () => {
-  useTitle('Login')
-  const { signIn } = useContext(AuthContext)
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = location?.state?.from?.pathname || '/'
+  useTitle("Login");
+  const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    
+
     signIn(email, password)
-        .then(result => {
-            const user = result.user;
-            navigate(from, {replace: true})
-        })
-        .catch(err => console.error(err))
-      };  
+      .then((result) => {
+        const user = result.user;
+        navigate(from, { replace: true });
+      })
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div className="hero mt-3">
