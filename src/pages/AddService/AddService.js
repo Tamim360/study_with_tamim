@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { notify } from '../../utilities/notify';
 
 const AddService = () => {
     const navigate = useNavigate()
@@ -25,10 +26,14 @@ const AddService = () => {
             body: JSON.stringify(service)
         })
         .then(res => res.json())
-        .then(data => navigate('/'))
+        .then(data => {
+          notify('Succesfully added service')
+          navigate('/')
+        })
     }
 
-    return (
+  return (
+      
         <div className="hero">
       <div className="hero-content flex-col">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -89,7 +94,7 @@ const AddService = () => {
           </form>
         </div>
       </div>
-    </div>
+      </div>
     );
 };
 

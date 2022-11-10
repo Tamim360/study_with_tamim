@@ -24,6 +24,8 @@ const ServiceDetails = () => {
 
         const review = {
             courseId: _id,
+            courseImage: image,
+            courseName: name,
             name: user.displayName,
             email: user.email,
             image: user.photoURL,
