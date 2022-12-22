@@ -2,14 +2,17 @@ import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import useTitle from "../../hooks/useTitle";
+import Loading from "../../shared/Loading/Loading";
 import ServiceCard from "../../shared/ServiceCard/ServiceCard";
 
 const Services = () => {
-  const { setLoading } = useContext(AuthContext);
+  const { setLoading, loading } = useContext(AuthContext);
   setLoading(true);
   useTitle("Services");
   const services = useLoaderData();
   setLoading(false);
+
+  loading && <Loading/>
 
   return (
     <div className="p-4 lg:px-8 overflow-x-hidden">

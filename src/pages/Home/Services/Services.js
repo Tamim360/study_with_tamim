@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import Loading from "../../../shared/Loading/Loading";
 import ServiceCard from "../../../shared/ServiceCard/ServiceCard";
 
 const Services = () => {
-  const { setLoading } = useContext(AuthContext);
+  // const { setLoading, loading } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false)
   const [services, setServices] = useState([]);
 
   useEffect(() => {
@@ -16,6 +18,8 @@ const Services = () => {
       });
     setLoading(false);
   }, []);
+
+  loading && <Loading/>
 
   return (
     <div className="p-4 lg:px-8 bg-slate-100">
